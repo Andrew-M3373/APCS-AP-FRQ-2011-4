@@ -1,9 +1,9 @@
 
 public class RouteCipher {
 
-	private String[][] letterBlock;
-	private int numRows;
-	private int numCols;
+	private String[][] letterBlock/* = new String[][] {{"a","b","c"},{"d","e","f"}}*/;
+	private int numRows = 2;
+	private int numCols = 3;
 	
 	private void fillBlock(String str) {
 		letterBlock = new String[numRows][numCols];
@@ -29,20 +29,17 @@ public class RouteCipher {
 	public String encryptMessage(String message) {
 		String str = "";
 		
-		//
-		numRows = 2;
-		numCols = 3;
-		
 		while (message.length() > 0) {
 			if(message.length() >= numRows * numCols) {
 				fillBlock(message.substring(0, numRows * numCols));
-				message = message.substring(numCols * numCols-1);
+				message = message.substring(numCols * numRows);
+				str += encryptBlock();
 			}
 			else {
 				fillBlock(message);
 				message = "";
+				str += encryptBlock();
 			}
-			str += encryptBlock();
 		}
 		
 		return str;
